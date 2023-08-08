@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Hodlinfo</title>
+</head>
+<body>
+    <header>
+        <h1>Hodlinfo</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/prices">Prices</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Top 10 Cryptocurrencies</h2>
+        <ul id="cryptoList"></ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Hodlinfo</p>
+    </footer>
+
+    <script>
+        async function fetchCryptoData() {
+            const response = await fetch('/cryptoData');
+            const data = await response.json();
+
+            const cryptoList = document.getElementById('cryptoList');
+            data.forEach(crypto => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${crypto.name} - Last: ${crypto.last}, Buy: ${crypto.buy}, Sell: ${crypto.sell}, Volume: ${crypto.volume}, Base Unit: ${crypto.base_unit}`;
+                cryptoList.appendChild(listItem);
+            });
+        }
+
+        fetchCryptoData();
+    </script>
+</body>
+</html>
